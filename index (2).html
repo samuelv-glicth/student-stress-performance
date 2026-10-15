@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2b3a7a">
+<title>MindCheck – Student Stress Check-in</title>
+<style>
+:root{--ind:#3b4cb8;--dark:#26337a;--navy:#1d2547;--bg:#f3f4fa;--line:#dcdff0;--muted:#5d6482;
+--low:#1a8f4c;--mod:#b8730d;--high:#c0392b}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--navy)}
+header{background:linear-gradient(135deg,#222e6e,#4a58c4);color:#fff;padding:36px 0 32px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.logo{font-size:2.1rem;font-weight:800;letter-spacing:-.5px;margin:0}
+.logo span{color:#a9f0d6}
+.tag{margin:4px 0 14px;font-size:.95rem}
+.lead{max-width:680px;font-size:1.1rem;line-height:1.5;margin:0}
+.badge{border:1px solid rgba(255,255,255,.6);border-radius:999px;padding:8px 16px;font-size:.85rem}
+main{padding:36px 0 50px}
+h1{font-size:2.2rem;margin:0 0 6px}
+.sub{color:var(--muted);margin:0}
+.top{margin-bottom:20px}
+.warn{background:#fff3da;border:1px solid #f0c987;border-radius:12px;padding:16px 20px;margin-bottom:22px;line-height:1.5}
+.warn b{display:block;color:#6b4a07;margin-bottom:4px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:22px}
+.card h2{margin:0 0 4px;font-size:1.3rem}
+.form{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:18px}
+label{display:flex;justify-content:space-between;font-weight:700;font-size:.9rem;margin-bottom:8px}
+label output{color:var(--ind)}
+select,input[type=number]{width:100%;font:inherit;padding:12px;border:1px solid #c6cbe3;border-radius:10px;background:#fff;color:var(--navy)}
+input[type=range]{width:100%;accent-color:var(--ind)}
+button{font:inherit;font-weight:700;background:var(--ind);color:#fff;border:0;border-radius:10px;padding:15px 26px;cursor:pointer;margin-top:20px}
+button:hover{background:var(--dark)}
+:focus-visible{outline:3px solid #a9f0d6;outline-offset:2px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.stat small{display:block;font-weight:600;color:var(--muted);margin-bottom:10px}
+.stat strong{display:block;font-size:2rem;font-weight:800}
+.stat span{font-size:.9rem;color:var(--muted)}
+.Low{color:var(--low)}.Moderate{color:var(--mod)}.High{color:var(--high)}
+.grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:22px}
+.f{display:grid;grid-template-columns:150px 1fr 56px;gap:10px;align-items:center;padding:8px 0;font-size:.92rem}
+.track{height:10px;background:#e6e8f4;border-radius:99px;position:relative}
+.track i{position:absolute;top:0;bottom:0;border-radius:99px}
+.num{text-align:right;font-weight:700}
+.meter{height:14px;border-radius:99px;background:linear-gradient(90deg,var(--low) 0 35%,var(--mod) 35% 60%,var(--high) 60% 100%);position:relative;margin:14px 0 6px}
+.meter i{position:absolute;top:-5px;width:4px;height:24px;background:var(--navy);border-radius:2px;transition:left .3s}
+.bands{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem;color:var(--muted);margin-top:10px}
+.next{background:#eceefb;border-radius:12px;padding:14px 16px;margin-top:16px;line-height:1.5}
+footer{color:var(--muted);font-size:.85rem;padding:0 0 40px}
+@media(max-width:860px){.form{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
+@media(max-width:520px){.form,.stats{grid-template-columns:1fr}h1{font-size:1.7rem}.f{grid-template-columns:120px 1fr 48px}}
+</style>
+</head>
+<body>
+<header><div class="wrap head">
+ <div>
+  <p class="logo">Mind<span>Check</span></p>
+  <p class="tag">Your simple student stress check-in</p>
+  <p class="lead">Answer a few questions about sleep, screen time, studies and support to see an illustrative stress score and gentle guidance.</p>
+ </div>
+ <div class="badge">SDG 3 · STUDENT PROJECT · SIMULATED DATA</div>
+</div></header>
+
+<main class="wrap">
+ <div class="top"><h1>Stress overview</h1><p class="sub">Move the sliders, then check your score. Nothing you enter is stored or sent anywhere.</p></div>
+
+ <div class="warn" role="note"><b>Important: screening aid only</b>
+ This is a student demo based on a simulated dataset. It is not a medical diagnosis and does not replace a counselor, doctor or mental health professional. If you are struggling, please talk to someone you trust.</div>
+
+ <section class="card" aria-labelledby="ask">
+  <h2 id="ask">Tell us about your week</h2>
+  <p class="sub">Typical values for an average day or week.</p>
+  <div class="form">
+   <div><label for="age">Age</label><input type="number" id="age" min="16" max="25" value="20"></div>
+   <div><label for="gender">Gender</label><select id="gender"><option>Female</option><option>Male</option></select></div>
+   <div><label for="support">Social support</label><select id="support"><option>Low</option><option selected>Medium</option><option>High</option></select></div>
+   <div><label for="counsel">Counseling taken</label><select id="counsel"><option>No</option><option>Yes</option></select></div>
+   <div><label for="sleep">Sleep per night <output id="o_sleep"></output></label><input type="range" id="sleep" min="3" max="10" step="0.5" value="6.5"></div>
+   <div><label for="screen">Screen time per day <output id="o_screen"></output></label><input type="range" id="screen" min="1" max="14" step="0.5" value="6"></div>
+   <div><label for="act">Physical activity per week <output id="o_act"></output></label><input type="range" id="act" min="0" max="14" step="0.5" value="3"></div>
+   <div><label for="press">Academic pressure <output id="o_press"></output></label><input type="range" id="press" min="1" max="10" step="1" value="6"></div>
+  </div>
+  <button id="go" type="button">Check stress</button>
+ </section>
+
+ <section class="stats" aria-live="polite">
+  <div class="stat"><small>Stress level</small><strong id="level">—</strong><span>Simulated estimate</span></div>
+  <div class="stat"><small>Stress score</small><strong id="score">—</strong><span>0–100 demo scale</span></div>
+  <div class="stat"><small>Biggest contributor</small><strong id="top" style="font-size:1.4rem;line-height:2.1rem">—</strong><span>Illustrative only</span></div>
+ </section>
+
+ <div class="grid2">
+  <section class="card">
+   <h2>What is driving the score</h2>
+   <p class="sub">Points added (red) or removed (green) versus a reference student with average habits (about 50/100 at medium support).</p>
+   <div id="factors"></div>
+  </section>
+  <section class="card">
+   <h2>Guidance</h2>
+   <div class="meter" aria-hidden="true"><i id="pin" style="left:0"></i></div>
+   <div class="bands"><span><b class="Low">Low</b> 0–34</span><span><b class="Moderate">Moderate</b> 35–59</span><span><b class="High">High</b> 60–100</span></div>
+   <div class="next" id="tip"><b>Suggested next step</b><br>Fill in the questions and press “Check stress”.</div>
+   <p class="sub" style="margin-top:12px;font-size:.85rem">Suggestions are general examples, not professional advice. Data source: Linear Regression trained on the simulated dataset (test R² 0.79).</p>
+  </section>
+ </div>
+</main>
+<footer class="wrap">MindCheck · Student project with simulated data. Not a diagnosis and not for emergencies. In an emergency contact local emergency services or a crisis line.</footer>
+
+<script>
+// ---- Model: Linear Regression fitted on youth_mental_health_dataset.csv (500 simulated students)
+// Same one-hot encoding as the notebook (reference group: Female, High support, no counseling).
+// Held-out test R² 0.79, MAE 4.7 points. Simulated data, so illustrative only.
+const $=id=>document.getElementById(id);
+const INTERCEPT=50.5552;
+const COEF={age:0.1121,sleep:-4.2445,act:-1.1436,screen:1.7133,press:3.0737,
+  support:{High:0,Medium:3.4901,Low:7.3490},male:-0.7030,counsel:-4.2851};
+const REF={age:20.48,sleep:6.55,act:3.45,screen:5.82,press:5.49,support:"Medium",gender:"Female",counsel:"No"};
+function predict(v){
+  return INTERCEPT+COEF.age*v.age+COEF.sleep*v.sleep+COEF.act*v.act+COEF.screen*v.screen+COEF.press*v.press
+   +COEF.support[v.support]+(v.gender==="Male"?COEF.male:0)+(v.counsel==="Yes"?COEF.counsel:0);
+}
+function contributions(v){ // change versus a reference student with average habits
+  return [
+    ["Academic pressure", COEF.press*(v.press-REF.press)],
+    ["Sleep", COEF.sleep*(v.sleep-REF.sleep)],
+    ["Screen time", COEF.screen*(v.screen-REF.screen)],
+    ["Physical activity", COEF.act*(v.act-REF.act)],
+    ["Social support", COEF.support[v.support]-COEF.support[REF.support]],
+    ["Counseling", v.counsel==="Yes"?COEF.counsel:0],
+    ["Gender", v.gender==="Male"?COEF.male:0],
+    ["Age", COEF.age*(v.age-REF.age)]
+  ];
+}
+function read(){return{age:+$("age").value,gender:$("gender").value,support:$("support").value,counsel:$("counsel").value,
+  sleep:+$("sleep").value,screen:+$("screen").value,act:+$("act").value,press:+$("press").value}}
+const level=s=>s>=60?"High":s>=35?"Moderate":"Low";
+const advice={
+ Low:"Stress looks manageable. Keep up your sleep, movement and social routines.",
+ Moderate:"Some stress is showing. Try a steadier sleep schedule, short daily activity, less late-night screen time, and talk to a friend or family member.",
+ High:"Stress looks high. Please consider talking to a counselor, teacher or a trusted adult soon. Reaching out early helps."};
+function labels(){
+  $("o_sleep").textContent=$("sleep").value+" h";$("o_screen").textContent=$("screen").value+" h";
+  $("o_act").textContent=$("act").value+" h";$("o_press").textContent=$("press").value+"/10";
+}
+function render(){
+  const v=read(),c=contributions(v);
+  const s=Math.max(0,Math.min(100,Math.round(predict(v))));
+  const l=level(s);
+  $("level").textContent=l;$("level").className=l;$("score").textContent=s+"/100";
+  const top=[...c].sort((a,b)=>Math.abs(b[1])-Math.abs(a[1]))[0];
+  $("top").textContent=top[0];
+  $("pin").style.left=`calc(${s}% - 2px)`;
+  $("tip").innerHTML="<b>Suggested next step</b><br>"+advice[l];
+  const max=20;
+  $("factors").innerHTML=c.map(([n,x])=>{
+    const w=Math.min(50,Math.abs(x)/max*50);
+    const col=x>0?"var(--high)":"var(--low)";
+    const st=x>=0?`left:50%;width:${w}%`:`right:50%;width:${w}%`;
+    return `<div class="f"><span>${n}</span><div class="track"><i style="${st};background:${col};opacity:${x===0?0:1}"></i></div><span class="num">${x>0?"+":""}${Math.round(x)}</span></div>`}).join("");
+}
+["sleep","screen","act","press"].forEach(id=>$(id).addEventListener("input",labels));
+["age","gender","support","counsel","sleep","screen","act","press"].forEach(id=>$(id).addEventListener("change",render));
+$("go").onclick=render;labels();render();
+</script>
+</body>
+</html>
